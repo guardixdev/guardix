@@ -1,0 +1,12 @@
+{
+  "name": "guardix-cli",
+  "version": "0.2.0",
+  "description": "Teaches a coding agent to work with Guardix smart-contract audits via the guardix CLI — read audit results, run and monitor audits, and triage findings across multiple audit providers.",
+  "author": {
+    "name": "Guardix"
+  },
+  "homepage": "https://guardix.io",
+  "repository": "https://github.com/guardixdev/guardix",
+  "license": "MIT",
+  "keywords": ["guardix", "cli", "security", "audit", "smart-contracts"]
+}

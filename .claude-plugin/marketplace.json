@@ -1,0 +1,15 @@
+{
+  "name": "guardix",
+  "owner": {
+    "name": "Guardix"
+  },
+  "description": "Official Guardix plugins for Claude Code.",
+  "plugins": [
+    {
+      "name": "guardix-cli",
+      "source": "./cli/plugin",
+      "description": "Work with Guardix smart-contract audits from your coding agent — read audit results, run and monitor audits, and triage findings across multiple audit providers.",
+      "version": "0.2.0"
+    }
+  ]
+}
