@@ -1,6 +1,6 @@
 ---
 name: guardix
-description: Read smart-contract audit results — findings, audit status, reports — with the guardix CLI. Use when working in a repository connected to Guardix, or when the user asks about audit findings, vulnerabilities, security-review status, a finding code like VAU-3, or mentions Guardix.
+description: Use the guardix CLI to read smart-contract audit results and create or manage Release Audits that reconcile external audit reports with source and deployments. Use when working in a repository connected to Guardix, when the user asks about findings, vulnerabilities, audit status, a finding code like VAU-3, third-party auditor coverage, release readiness, or any Guardix workflow.
 ---
 
 # Guardix CLI
@@ -13,6 +13,8 @@ it to pull real audit results instead of guessing about security state.
 
 - The user asks "are there findings", "what did the audit say", "is this
   contract reviewed", "what vulnerabilities were found".
+- The user wants to review third-party audit reports against a release,
+  source snapshot, private source archive, or deployed contract.
 - You are about to change a smart contract and should check known findings first.
 - The user mentions Guardix, an audit, or a finding code like `VAU-3`.
 
@@ -20,6 +22,7 @@ it to pull real audit results instead of guessing about security state.
 
 ```bash
 guardix --version        # not installed? https://github.com/guardixdev/guardix
+                         # release-audit commands need >= 0.3.4; run: guardix upgrade
 guardix auth status      # not signed in? run: guardix auth login
 ```
 
@@ -38,13 +41,59 @@ guardix audit get --audit '#5'       # one audit's status
 
 Add `--json` to any command for structured output you can parse.
 
+## Release Audits
+
+Treat a Release Audit as a separate product from a full Guardix code audit. It
+meta-reviews external auditor reports and reconciles them with supplied source
+and optional deployment addresses.
+
+Inside a connected checkout, start with:
+
+```bash
+guardix release-audit start \
+  --report audit.pdf \
+  --non-interactive --json --wait
+```
+
+For standalone or multi-source releases, repeat `--report`, `--repo-url`, and
+`--source-zip`; add deployed contracts as
+`--deployment chain:0xaddress[:label]`. Source is required by default.
+Use `--report-only` only when the user explicitly accepts weaker
+reconciliation.
+
+Use the resumable workflow when uploads or orchestration need separate steps:
+
+```bash
+guardix release-audit create --project "Protocol v2" --json
+guardix release-audit report add <id> audit.pdf
+guardix release-audit source add-git <id> https://github.com/org/repo --ref v2
+guardix release-audit source add-zip <id> private-source.zip
+guardix release-audit run <id> --json --wait
+```
+
+When wait exits `3`, this is not an assessment failure. Inspect
+`next_action`; payment or intake input is required. Resolve intake with:
+
+```bash
+guardix release-audit discovery show <id> --json
+guardix release-audit discovery show <id> <question-id> --json
+guardix release-audit discovery answer <id> <question-id> --answer @answer.json --json
+guardix release-audit discovery recheck <id> --json
+guardix release-audit discovery proceed <id> --json
+```
+
+Use `discovery show` to obtain the exact kind-shaped answer example. Do not
+guess discovery answer fields. Waivers and `--acknowledge-gaps` are recorded on
+the final assessment; require the user's reason and explicit approval.
+
 ## Agent contract
 
 - `--json` — structured stdout; on failure, stdout carries
   `{"error":{"code","message","hint","status"}}`.
 - `--quiet` — suppress informational stderr (hints, inferred values).
 - `--non-interactive` — never prompt; fail fast when input is missing.
-- Exit codes: `0` success, `1` failure, `2` `audit wait` timed out.
+- Exit codes: `0` success, `1` failure, `2` wait timed out, `3` Release Audit
+  payment or intake action required.
 
 When repo inference fails in `--json` mode the error envelope carries a stable
 `.error.code` — branch on it instead of parsing prose:

@@ -126,10 +126,9 @@ Produce both:
    list, every normalized finding, the correlated issues with members and
    verdicts, the summary counts.
 
-Then offer two follow-ups (do not do them unprompted):
-
-- Sync verdicts back to Guardix findings with `guardix finding review`.
-- Upload the artifact for a hosted view (if `guardix triage upload` exists).
+Then offer one follow-up (do not do it unprompted): sync verdicts back to
+Guardix findings with `guardix finding review <CODE> --status mitigated|dismissed`
+(add `--note` for the reasoning; `--comment` posts a discussion comment).
 
 ## Honesty constraints
 
