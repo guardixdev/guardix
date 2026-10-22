@@ -49,7 +49,7 @@ Run these commands inside a git checkout of the repository you want to audit:
 
     The CLI prints a URL and a pairing code. Approve the pairing in your browser at guardix.io. When you have no connected repositories, it asks you to connect the GitHub repository in this checkout. Press Enter to connect it. For CI, see `guardix auth login --help` for API key sign-in.
 
-2. See the free audits left and the price of one audit:
+2. See how many audits your team has left:
 
     ```bash
     guardix quota
@@ -83,7 +83,7 @@ An audit takes 2 to 10 hours, depending on the size of the code. To follow a run
 | `guardix finding` | Lists findings, shows one finding, and records a review or a comment. |
 | `guardix init` | Signs in, and connects this checkout when you have no repositories yet. |
 | `guardix manifest` | Prints every command, flag, environment variable, and exit code as one JSON document. |
-| `guardix quota` | Shows the free audits left and the price of one audit. |
+| `guardix quota` | Show how many audits your team has left. |
 | `guardix release-audit` | Reviews external audit reports against release source and deployments. |
 | `guardix repo` | Lists, connects, and disconnects repositories. |
 | `guardix status` | Shows the latest audit and the open-finding count for the current repository. |
@@ -102,11 +102,15 @@ Run these two commands in Claude Code:
 
 The plugin calls the `guardix` CLI, so install the CLI and sign in first.
 
-`npx skills add guardixdev/guardix` installs the same three skills into your coding agent.
+`guardix agent setup --client claude` adds the guardixdev/guardix plugin marketplace and installs the guardix-cli plugin. It runs the `claude` CLI.
 
 ## Use the plugin in Cursor
 
-The Cursor plugin manifest is [`.cursor-plugin/plugin.json`](.cursor-plugin/plugin.json). It uses the same skills, which are in [`skills/`](skills/).
+Cursor has no one-step plugin install. The Cursor plugin manifest is [`.cursor-plugin/plugin.json`](.cursor-plugin/plugin.json). It uses the same skills, which are in [`skills/`](skills/).
+
+`guardix agent setup --client cursor` writes the bundled skills into `~/.cursor/skills`. Add `--scope project` to write them into `./.cursor/skills` instead.
+
+`npx skills add guardixdev/guardix` installs the three skills `guardix`, `running-audits`, and `cross-audit-triage` into your coding agent.
 
 ## What the skills do
 
