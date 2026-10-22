@@ -9,7 +9,7 @@
       "name": "guardix-cli",
       "source": "./cli/plugin",
       "description": "Work with Guardix smart-contract audits from your coding agent \u2014 read audit results, run and monitor audits, and triage findings across multiple audit providers.",
-      "version": "0.3.0"
+      "version": "0.3.4"
     }
   ]
 }

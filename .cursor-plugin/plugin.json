@@ -1,7 +1,7 @@
 {
   "name": "guardix",
   "description": "Guardix smart-contract security audits from your agent: read findings, run audits, and reconcile reports via the guardix CLI.",
-  "version": "0.3.0",
+  "version": "0.3.4",
   "author": {
     "name": "Guardix"
   }

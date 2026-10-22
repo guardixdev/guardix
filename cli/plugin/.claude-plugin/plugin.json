@@ -1,6 +1,6 @@
 {
   "name": "guardix-cli",
-  "version": "0.3.0",
+  "version": "0.3.4",
   "description": "Teaches a coding agent to work with Guardix smart-contract audits via the guardix CLI \u2014 read audit results, run and monitor audits, and triage findings across multiple audit providers.",
   "author": {
     "name": "Guardix"
