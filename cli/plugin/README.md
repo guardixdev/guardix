@@ -10,7 +10,7 @@ This repository holds three parts that connect your terminal and your coding age
 | The Claude Code and Cursor plugin | Installs the Guardix skills into your coding agent. | [`.claude-plugin/`](.claude-plugin/), [`.cursor-plugin/`](.cursor-plugin/), and [`cli/plugin/`](cli/plugin/) |
 | The skills | Tell the agent when to call the CLI and which commands exist. | [`skills/`](skills/) |
 
-Website: [guardix.io](https://guardix.io). Docs: [CLI and agent skills](https://guardix.io/docs/guides/cli-and-agent-skills/).
+Website: [guardix.io](https://guardix.io). Docs: [CLI and agent skills](https://guardix.io/docs/guides/cli-and-agent-skills/). The [smart contract scanner](https://guardix.io/smart-contract-scanner/) page compares Guardix with Slither, Mythril, and SolidityScan.
 
 ## Install the CLI
 
